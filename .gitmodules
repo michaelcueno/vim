@@ -4,3 +4,21 @@
 [submodule "pack/mcueno/start/coc.nvim"]
 	path = pack/mcueno/start/coc.nvim
 	url = https://github.com/neoclide/coc.nvim
+[submodule "pack/mcueno/start/fzf.vim"]
+	path = pack/mcueno/start/fzf.vim
+	url = https://github.com/junegunn/fzf.vim.git
+[submodule "pack/mcueno/start/gruvbox"]
+	path = pack/mcueno/start/gruvbox
+	url = https://github.com/morhetz/gruvbox
+[submodule "pack/mcueno/start/nerdtree"]
+	path = pack/mcueno/start/nerdtree
+	url = https://github.com/preservim/nerdtree.git
+[submodule "pack/mcueno/start/vim-fugitive"]
+	path = pack/mcueno/start/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive.git
+[submodule "pack/mcueno/start/vim-gutentags"]
+	path = pack/mcueno/start/vim-gutentags
+	url = https://github.com/ludovicchabant/vim-gutentags.git
+[submodule "pack/mcueno/start/vim-markdown-preview"]
+	path = pack/mcueno/start/vim-markdown-preview
+	url = https://github.com/JamshedVesuna/vim-markdown-preview
