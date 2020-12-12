@@ -25,3 +25,12 @@
 [submodule "pack/mcueno/start/vim-surround"]
 	path = pack/mcueno/start/vim-surround
 	url = https://github.com/tpope/vim-surround
+[submodule "pack/mcueno/start/vim-visual-multi"]
+	path = pack/mcueno/start/vim-visual-multi
+	url = https://github.com/mg979/vim-visual-multi.git
+[submodule "pack/typescript/start/typescript-vim"]
+	path = pack/typescript/start/typescript-vim
+	url = https://github.com/leafgarland/typescript-vim.git
+[submodule "pack/mcueno/start/lightline"]
+	path = pack/mcueno/start/lightline
+	url = https://github.com/itchyny/lightline.vim
