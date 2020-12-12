@@ -1,0 +1,6 @@
+[submodule "pack/mcueno/start/fzf"]
+	path = pack/mcueno/start/fzf
+	url = https://github.com/junegunn/fzf.git
+[submodule "pack/mcueno/start/coc.nvim"]
+	path = pack/mcueno/start/coc.nvim
+	url = https://github.com/neoclide/coc.nvim
