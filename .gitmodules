@@ -22,3 +22,6 @@
 [submodule "pack/mcueno/start/vim-markdown-preview"]
 	path = pack/mcueno/start/vim-markdown-preview
 	url = https://github.com/JamshedVesuna/vim-markdown-preview
+[submodule "pack/mcueno/start/vim-surround"]
+	path = pack/mcueno/start/vim-surround
+	url = https://github.com/tpope/vim-surround
