@@ -9,19 +9,33 @@ set number
 set showcmd
 set noshowmode
 set laststatus=2
-" set autochdir           " auto set working directory to the current file -breaks git 
+" set autochdir         " auto set working directory to the current file -breaks git 
 set foldmethod=syntax
 set foldlevelstart=20
+set nomodeline          " Annoying error ex: 
+
+" set leader to ,
+let mapleader=","
+let g:mapleader=","
 
 "--------------------------------------------------------------------------- 
 " PLUGIN SETTINGS
 "--------------------------------------------------------------------------- 
+let g:sw_exe = '/Applications/SQLWorkbenchJ.app/Contents/Java/sqlwbconsole.sh'
+let g:sw_config_dir = '~/.sqlworkbench/'
+let g:sw_cache = '~/.cache/sw/'
 map <C-p> :GFiles --cached --others --exclude-standard <CR>
 
-"-- readme preview 
-let vim_markdown_preview_hotkey='<C-m>'
-let vim_markdown_preview_browser='Google Chrome'
+"-- fzf 
+nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
+
+"-- markdown folding 
+autocmd FileType markdown set foldexpr=NestedMarkdownFolds()
+autocmd FileType markdown let b:coc_suggest_disable = 1 " Turn off for filetypes
+let vim_markdown_preview_hotkey='<C-m>' 
+let vim_markdown_preview_browser='Google Chrome' 
 let vim_markdown_preview_github=1
+nnoremap <leader>m :call Vim_Markdown_Preview()<CR> 
 
 "-- lightline 
 let g:lightline = {
@@ -78,10 +92,54 @@ let g:gutentags_ctags_exclude = [
       \ '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
       \ ]
 
-noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
-noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
-noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
-noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+" coc (recommended settings)
+set updatetime=300
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gp :CocList diagnostics<CR>
+nmap <silent> g[ :call CocAction('diagnosticNext')<CR>
+nmap <silent> g] :call CocAction('diagnosticPrevious')<CR>
+autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+
 "--------------------------------------------------------------------------- 
 
 "--------------------------------------------------------------------------- 
@@ -102,7 +160,7 @@ filetype indent on    " Enable filetype-specific indenting
 filetype plugin on    " Enable filetype-specific plugins
 
 " auto reload vimrc when editing it
-autocmd! bufwritepost .vimrc source ~/.vimrc
+autocmd! bufwritepost .vimrc source ~/.vim/.vimrc
 
 syntax on		" syntax highlight
 set hlsearch		" search highlighting
@@ -127,6 +185,8 @@ set undofile            " Save undo's after file closes
 set undodir=~/.vim/undodir
 set undolevels=500      " How many undos
 set undoreload=10000    " Number of lines to save for undos
+set backupdir=.backup/,~/tmp//,/tmp//
+set directory=.swp/,~/tmp//,/tmp//
 
 
 " disable sound on errors
@@ -146,28 +206,29 @@ au FileType Makefile set noexpandtab
 set viminfo='10,\"100,:20,%,n~/.viminfo
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 
-"--------------------------------------------------------------------------- 
-" Tip #382: Search for <cword> and replace with input() in all open buffers 
-"--------------------------------------------------------------------------- 
-fun! Replace() 
-    let s:word = input("Replace " . expand('<cword>') . " with:") 
-    :exe 'bufdo! %s/\<' . expand('<cword>') . '\>/' . s:word . '/ge' 
-    :unlet! s:word 
-endfun 
+" Open tags in vertical split by default
+nnoremap <C-W><C-V>[ :exec "vert norm <C-V><C-W>["<CR>
 
 "--------------------------------------------------------------------------- 
 " USEFUL SHORTCUTS
 "--------------------------------------------------------------------------- 
-" set leader to ,
-let mapleader=","
-let g:mapleader=","
-map <leader>t :NERDTreeToggle<CR>
+
+map <leader>t :NERDTreeFind<cr>
+map <leader>c :NERDTreeToggle<cr>
+map <leader>ya :%y<cr>
+let NERDTreeIgnore = ['\.d.ts$', '\.d.ts.map$']
+
+function! Ijs() 
+  let g:NERDTreeIgnore = ['\.d.ts$', '\.d.ts.map$', '\.js$']
+endfunction
+
+function! BranchName ()
+  let g:branchName = system("git branch --show-current")
+  echo g:branchName
+endfunction
 
 " Map git blame 
 map <leader>b :Git blame<CR>
-
-" replace the current word in all opened buffers
-map <leader>r :call Replace()<CR>
 
 " open the error console
 map <leader>cc :botright cope<CR> 
@@ -217,37 +278,12 @@ vnoremap > >gv
 " :cd. change working directory to that of the current file
 cmap cd. lcd %:p:h
 
-" Writing Restructured Text (Sphinx Documentation) {
-   " Ctrl-u 1:    underline Parts w/ #'s
-   noremap  <C-u>1 yyPVr#yyjp
-   inoremap <C-u>1 <esc>yyPVr#yyjpA
-   " Ctrl-u 2:    underline Chapters w/ *'s
-   noremap  <C-u>2 yyPVr*yyjp
-   inoremap <C-u>2 <esc>yyPVr*yyjpA
-   " Ctrl-u 3:    underline Section Level 1 w/ ='s
-   noremap  <C-u>3 yypVr=
-   inoremap <C-u>3 <esc>yypVr=A
-   " Ctrl-u 4:    underline Section Level 2 w/ -'s
-   noremap  <C-u>4 yypVr-
-   inoremap <C-u>4 <esc>yypVr-A
-   " Ctrl-u 5:    underline Section Level 3 w/ ^'s
-   noremap  <C-u>5 yypVr^
-   inoremap <C-u>5 <esc>yypVr^A
-"}
+" Replace the word with yank (sends current word to null register
+nnoremap <leader>r "_diwP
 
 "--------------------------------------------------------------------------- 
 " PROGRAMMING SHORTCUTS
 "--------------------------------------------------------------------------- 
-
-" ,g generates the header guard
-map <leader>g :call IncludeGuard()<CR>
-fun! IncludeGuard()
-   let basename = substitute(bufname(""), '.*/', '', '')
-   let guard = '_' . substitute(toupper(basename), '\.', '_', "H")
-   call append(0, "#ifndef " . guard)
-   call append(1, "#define " . guard)
-   call append( line("$"), "#endif // for #ifndef " . guard)
-endfun
 
 " Enable omni completion. (Ctrl-X Ctrl-O)
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
@@ -297,6 +333,80 @@ fun! Big5()
 	set fileencoding=big5
 endfun
 
+
+function! Hey() 
+  let ok = system('echo hey '.shellescape(expand('%')).' 2>/dev/null')
+  echo ok
+endfunction
+
+"--------------------------------------------------------------------------- 
+" Plugin Idea - Open line of code in sourcegraph
+"--------------------------------------------------------------------------- 
+" This doesn't work...
+function! OpenInSourceGraph()
+  let reponame = system('basename $(git rev-parse --show-toplevel)')
+  let s:uri = "https://sourcegraph.convoy.com/github.com/convoyinc/".reponame
+  echo s:uri
+  silent exec "!open '".s:uri."'"
+endfunction
+map <leader>sr :call OpenInSourceGraph()<cr>
+
+"--------------------------------------------------------------------------- 
+" Plugin Idea - Open selected text on SourceGraph
+"--------------------------------------------------------------------------- 
+fu! OpenInEnglogs() 
+  echom "someday i'll figure out how to open this automatically..." 
+  echom "https://logging.eng.convoy.com/_plugin/kibana/app/kibana#/discover?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-1hr,to:now))&_a=(columns:!(message),filters:!(),index:'13660d70-91b7-11eb-a6ac-11c8977654bf',interval:auto,query:(language:lucene,query:'".s:get_visual_selection()."'),sort:!())"
+endfunction
+
+xnoremap <leader>el :call OpenInEnglogs()<CR>
+
+"--------------------------------------------------------------------------- 
+" Helper Functions
+"--------------------------------------------------------------------------- 
+" Working
+
+" Open the current file in Chrome in OSX from Vim
+" Add this to ~/.vimrc
+" Usage: `:Browse`
+command Browse  expand('%:p')
+
+" Not working 
+function! s:get_visual_selection()
+    " Why is this not a built-in Vim script function?!
+    let [line_start, column_start] = getpos("'<")[1:2]
+    let [line_end, column_end] = getpos("'>")[1:2]
+    let lines = getline(line_start, line_end)
+    if len(lines) == 0
+        return ''
+    endif
+    let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
+    let lines[0] = lines[0][column_start - 1:]
+    return join(lines, "\n")
+endfunction
+
+"--------------------------------------------------------------------------- 
+" Sessions
+"--------------------------------------------------------------------------- 
+fu! SaveSesh() 
+  tabdo NERDTreeClose
+  let name = system("seshname")
+  echo name
+  exec "mks! ".name
+endfunction
+
+map <C-s> :call SaveSesh()<CR>
+
+fu! Loadit() 
+  let s:vimrc = getcwd()."/.vim/.vimrc"
+  if filereadable(s:vimrc)
+    echo "Found a local vimrc file, sourcing it.."
+    echo s:vimrc
+  else 
+    echo "No local vimrc found ".s:vimrc
+  endif
+endfunction
+
 "--------------------------------------------------------------------------- 
 " SNIPPETS
 "--------------------------------------------------------------------------- 
@@ -305,6 +415,17 @@ nnoremap ,it :-1read $HOME/.vim/snippets/it<CR>4li
 nnoremap ,trap :-1read /Users/michaelcueno/.vim/snippets/trap<CR>o
 nnoremap ,1on1 :-1read /Users/michaelcueno/.vim/snippets/1on1<CR>jA
 nnoremap ,do :-1read /Users/michaelcueno/.vim/snippets/do<CR>:pu=' -'<CR>:pu=strftime('%m/%d')<CR>kkJJhhi 
-nnoremap ,int :-1read /Users/michaelcueno/.vim/snippets/int<CR>
+nnoremap ,inta :-1read /Users/michaelcueno/.vim/snippets/inta<CR>
 nnoremap ,line :-1read /Users/michaelcueno/.vim/snippets/line<CR>
+nnoremap ,impc :-1read /Users/michaelcueno/.vim/snippets/const<CR>
+nnoremap ,nca :-1read /Users/michaelcueno/.vim/snippets/nca<CR>
+nnoremap ,uml :-1read /Users/michaelcueno/.vim/snippets/uml<CR>
+nnoremap ,int :-1read /Users/michaelcueno/.vim/snippets/int<CR>
+nnoremap ,con :-1read /Users/michaelcueno/.vim/snippets/con<CR>30li
+nnoremap ,comp :-1read /Users/michaelcueno/.vim/snippets/comp<CR>8jw<CR>
 
+nnoremap ,comp :-1read /Users/michaelcueno/.vim/snippets/comp<CR>
+nnoremap ,intv :-1read /Users/michaelcueno/.vim/snippets/intv<CR>
+nnoremap ,intc :-1read /Users/michaelcueno/.vim/snippets/intc<CR>
+nnoremap ,row :-1read /Users/michaelcueno/.vim/snippets/row<CR>
+nnoremap ,intt :-1read /Users/michaelcueno/.vim/snippets/intt<CR>

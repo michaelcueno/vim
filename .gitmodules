@@ -1,36 +1,57 @@
 [submodule "pack/mcueno/start/fzf"]
-	path = pack/mcueno/start/fzf
+	path = pack/plugins/start/fzf
 	url = https://github.com/junegunn/fzf.git
 [submodule "pack/mcueno/start/coc.nvim"]
 	path = pack/mcueno/start/coc.nvim
 	url = https://github.com/neoclide/coc.nvim
 [submodule "pack/mcueno/start/fzf.vim"]
-	path = pack/mcueno/start/fzf.vim
+	path = pack/plugins/start/fzf.vim
 	url = https://github.com/junegunn/fzf.vim.git
 [submodule "pack/mcueno/start/gruvbox"]
-	path = pack/mcueno/start/gruvbox
+	path = pack/plugins/start/gruvbox
 	url = https://github.com/morhetz/gruvbox
 [submodule "pack/mcueno/start/nerdtree"]
-	path = pack/mcueno/start/nerdtree
+	path = pack/plugins/start/nerdtree
 	url = https://github.com/preservim/nerdtree.git
 [submodule "pack/mcueno/start/vim-fugitive"]
-	path = pack/mcueno/start/vim-fugitive
+	path = pack/plugins/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
 [submodule "pack/mcueno/start/vim-gutentags"]
-	path = pack/mcueno/start/vim-gutentags
+	path = pack/plugins/start/vim-gutentags
 	url = https://github.com/ludovicchabant/vim-gutentags.git
 [submodule "pack/mcueno/start/vim-markdown-preview"]
-	path = pack/mcueno/start/vim-markdown-preview
+	path = pack/plugins/start/vim-markdown-preview
 	url = https://github.com/JamshedVesuna/vim-markdown-preview
 [submodule "pack/mcueno/start/vim-surround"]
-	path = pack/mcueno/start/vim-surround
+	path = pack/plugins/start/vim-surround
 	url = https://github.com/tpope/vim-surround
 [submodule "pack/mcueno/start/vim-visual-multi"]
-	path = pack/mcueno/start/vim-visual-multi
+	path = pack/plugins/start/vim-visual-multi
 	url = https://github.com/mg979/vim-visual-multi.git
 [submodule "pack/typescript/start/typescript-vim"]
 	path = pack/typescript/start/typescript-vim
 	url = https://github.com/leafgarland/typescript-vim.git
 [submodule "pack/mcueno/start/lightline"]
-	path = pack/mcueno/start/lightline
+	path = pack/plugins/start/lightline
 	url = https://github.com/itchyny/lightline.vim
+[submodule "pack/plugins/start/coc.nvim"]
+	path = pack/plugins/start/coc.nvim
+	url = https://github.com/neoclide/coc.nvim
+[submodule "pack/plugins/start/plantuml-previewer"]
+	path = pack/plugins/start/plantuml-previewer
+	url = https://github.com/weirongxu/plantuml-previewer.vim
+[submodule "pack/plugins/start/plantuml-syntax"]
+	path = pack/plugins/start/plantuml-syntax
+	url = https://github.com/aklt/plantuml-syntax
+[submodule "pack/plugins/start/vim-auto-save"]
+	path = pack/plugins/start/vim-auto-save
+	url = https://github.com/907th/vim-auto-save
+[submodule "pack/plugins/start/vim-gh-line"]
+	path = pack/plugins/start/vim-gh-line
+	url = https://github.com/ruanyl/vim-gh-line
+[submodule "pack/plugins/start/vim-graphql"]
+	path = pack/plugins/start/vim-graphql
+	url = https://github.com/jparise/vim-graphql.git
+[submodule "pack/plugins/start/vim-markdown-folding"]
+	path = pack/plugins/start/vim-markdown-folding
+	url = https://github.com/mikeboiko/vim-markdown-folding

@@ -1,0 +1,11 @@
+@startuml TITLE 
+title DESCRIPTION
+
+box "Service"
+  participant request
+end box
+
+participant Shipotle as shipotle
+database rmis_update_queue
+
+@enduml

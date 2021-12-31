@@ -1,0 +1,18 @@
+import styled from "@emotion/styled";
+import * as Fuel from '@convoy/fuel';
+
+const Root = styled.div({
+});
+
+interface Props { 
+}
+
+const Comp = ({}: Props) => {
+  return (
+    <Root>
+    </Root>
+  );
+}
+
+export default Comp;
+

@@ -3,3 +3,10 @@ unused
 .netrwhist
 backup
 **/*.DS_Store
+sesh
+pack/plugins/opt
+
+# Work stuff that should remain private
+snippets/int*
+pack/plugins/start/vim-terraform/
+pack/plugins/start/vim-pug/

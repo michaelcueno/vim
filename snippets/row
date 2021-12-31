@@ -1,0 +1,1 @@
+SELECT row_number() over (partition by a.id order by b.created_at) as RANK
