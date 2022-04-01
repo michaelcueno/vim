@@ -162,7 +162,8 @@ filetype plugin on    " Enable filetype-specific plugins
 " auto reload vimrc when editing it
 autocmd! bufwritepost .vimrc source ~/.vim/.vimrc
 
-syntax on		" syntax highlight
+syntax on " syntax highlight
+set re=0
 set hlsearch		" search highlighting
 
 set clipboard=unnamed	" yank to the system register (*) by default
