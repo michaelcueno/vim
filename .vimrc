@@ -18,6 +18,23 @@ set nomodeline          " Annoying error ex:
 let mapleader=","
 let g:mapleader=","
 
+" Enable plugins not in nvim (vscode)
+if exists('g:vscode')
+  nnoremap z= <Cmd>call VSCodeNotify('keyboard-quickfix.openQuickFix')<CR>
+  nnoremap H <Cmd>call VSCodeNotify('workbench.action.previousEditor')<CR>
+  nnoremap L <Cmd>call VSCodeNotify('workbench.action.nextEditor')<CR>
+  nnoremap <leader>rn <Cmd>call VSCodeNotify('editor.action.rename')<CR>
+  nnoremap g[ <Cmd>call VSCodeNotify('editor.action.marker.next')<CR>
+  nnoremap g] <Cmd>call VSCodeNotify('editor.action.marker.prev')<CR>
+  nnoremap gr <Cmd>call VSCodeNotify('references-view.findReferences')<CR>
+  nnoremap <leader>t <Cmd>call VSCodeNotify('workbench.view.explorer')<CR>
+  nnoremap <leader>gh <Cmd>call VSCodeNotify('openInGithub.openInGitHubFile')<CR>
+  nnoremap <leader>ag <Cmd>call VSCodeNotify('runInSearchPanel', {'filesToInclude': '${workspaceFolder}', 'triggerSearch': true })<CR>
+else 
+  packadd vim-fugitive
+  packadd coc.nvim  " wierd I know .. 
+endif
+
 "--------------------------------------------------------------------------- 
 " PLUGIN SETTINGS
 "--------------------------------------------------------------------------- 
@@ -116,28 +133,30 @@ else
 endif
 
 " Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+if !exists('g:vscode')
+  nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
-endfunction
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-nmap <silent> gp :CocList diagnostics<CR>
-nmap <silent> g[ :call CocAction('diagnosticNext')<CR>
-nmap <silent> g] :call CocAction('diagnosticPrevious')<CR>
-autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
+  function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+      execute 'h '.expand('<cword>')
+    elseif (coc#rpc#ready())
+      call CocActionAsync('doHover')
+    else
+      execute '!' . &keywordprg . " " . expand('<cword>')
+    endif
+  endfunction
+  " GoTo code navigation.
+  nmap <silent> gd <Plug>(coc-definition)
+  nmap <silent> gy <Plug>(coc-type-definition)
+  nmap <silent> gi <Plug>(coc-implementation)
+  nmap <silent> gr <Plug>(coc-references)
+  nmap <silent> gp :CocList diagnostics<CR>
+  nmap <silent> g[ :call CocAction('diagnosticNext')<CR>
+  nmap <silent> g] :call CocAction('diagnosticPrevious')<CR>
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+  " Symbol renaming.
+  nmap <leader>rn <Plug>(coc-rename)
+endif
 
 
 "--------------------------------------------------------------------------- 
@@ -199,6 +218,7 @@ set tm=500
 " TAB setting
 set expandtab        "replace <TAB> with spaces
 set softtabstop=2
+set tabstop=2
 set shiftwidth=2 
 
 au FileType Makefile set noexpandtab
@@ -207,17 +227,18 @@ au FileType Makefile set noexpandtab
 set viminfo='10,\"100,:20,%,n~/.viminfo
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 
-" Open tags in vertical split by default
-nnoremap <C-W><C-V>[ :exec "vert norm <C-V><C-W>["<CR>
 
 "--------------------------------------------------------------------------- 
 " USEFUL SHORTCUTS
 "--------------------------------------------------------------------------- 
 
-map <leader>t :NERDTreeFind<cr>
-map <leader>c :NERDTreeToggle<cr>
-map <leader>ya :%y<cr>
-let NERDTreeIgnore = ['\.d.ts$', '\.d.ts.map$']
+if !exists('g:vscode')
+  packadd nerdtree
+  map <leader>t :NERDTreeFind<cr>
+  map <leader>c :NERDTreeToggle<cr>
+  map <leader>ya :%y<cr>
+  let NERDTreeIgnore = ['\.d.ts$', '\.d.ts.map$']
+endif
 
 function! Ijs() 
   let g:NERDTreeIgnore = ['\.d.ts$', '\.d.ts.map$', '\.js$']
@@ -256,10 +277,12 @@ set wmh=0                     " set the min height of a window to 0 so we can ma
 
 " move around tabs. conflict with the original screen top/bottom
 " comment them out if you want the original H/L
-" go to prev tab 
-map <S-H> gT
-" go to next tab
-map <S-L> gt
+if !exists('g:vscode')
+  " go to prev tab 
+  map <S-H> gT
+  " go to next tab
+  map <S-L> gt
+endif
 
 " new tab
 nnoremap <C-t><C-t> :tabnew<CR>
@@ -413,20 +436,18 @@ endfunction
 "--------------------------------------------------------------------------- 
 nnoremap ,desc :-1read $HOME/.vim/snippets/describe<CR>10li
 nnoremap ,it :-1read $HOME/.vim/snippets/it<CR>4li
-nnoremap ,trap :-1read /Users/michaelcueno/.vim/snippets/trap<CR>o
-nnoremap ,1on1 :-1read /Users/michaelcueno/.vim/snippets/1on1<CR>jA
-nnoremap ,do :-1read /Users/michaelcueno/.vim/snippets/do<CR>:pu=' -'<CR>:pu=strftime('%m/%d')<CR>kkJJhhi 
-nnoremap ,inta :-1read /Users/michaelcueno/.vim/snippets/inta<CR>
-nnoremap ,line :-1read /Users/michaelcueno/.vim/snippets/line<CR>
-nnoremap ,impc :-1read /Users/michaelcueno/.vim/snippets/const<CR>
-nnoremap ,nca :-1read /Users/michaelcueno/.vim/snippets/nca<CR>
-nnoremap ,uml :-1read /Users/michaelcueno/.vim/snippets/uml<CR>
-nnoremap ,int :-1read /Users/michaelcueno/.vim/snippets/int<CR>
-nnoremap ,con :-1read /Users/michaelcueno/.vim/snippets/con<CR>30li
-nnoremap ,comp :-1read /Users/michaelcueno/.vim/snippets/comp<CR>8jw<CR>
-
-nnoremap ,comp :-1read /Users/michaelcueno/.vim/snippets/comp<CR>
-nnoremap ,intv :-1read /Users/michaelcueno/.vim/snippets/intv<CR>
-nnoremap ,intc :-1read /Users/michaelcueno/.vim/snippets/intc<CR>
-nnoremap ,row :-1read /Users/michaelcueno/.vim/snippets/row<CR>
-nnoremap ,intt :-1read /Users/michaelcueno/.vim/snippets/intt<CR>
+nnoremap ,trap :-1read /Users/michael/.vim/snippets/trap<CR>o
+nnoremap ,1on1 :-1read /Users/michael/.vim/snippets/1on1<CR>jA
+nnoremap ,do :-1read /Users/michael/.vim/snippets/do<CR>:pu=' -'<CR>:pu=strftime('%m/%d')<CR>kkJJhhi 
+nnoremap ,line :-1read /Users/michael/.vim/snippets/line<CR>
+nnoremap ,impc :-1read /Users/michael/.vim/snippets/const<CR>
+nnoremap ,nca :-1read /Users/michael/.vim/snippets/nca<CR>
+nnoremap ,uml :-1read /Users/michael/.vim/snippets/uml<CR>
+nnoremap ,con :-1read /Users/michael/.vim/snippets/con<CR>30li
+nnoremap ,comp :-1read /Users/michael/.vim/snippets/comp<CR>8jw<CR>
+nnoremap ,int :-1read /Users/michael/.vim/snippets/int<CR>
+nnoremap ,inta :-1read /Users/michael/.vim/snippets/inta<CR>
+nnoremap ,intv :-1read /Users/michael/.vim/snippets/intv<CR>
+nnoremap ,intc :-1read /Users/michael/.vim/snippets/intc<CR>
+nnoremap ,intt :-1read /Users/michael/.vim/snippets/intt<CR>
+nnoremap ,row :-1read /Users/michael/.vim/snippets/row<CR>
