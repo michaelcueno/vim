@@ -55,3 +55,6 @@
 [submodule "pack/plugins/start/vim-markdown-folding"]
 	path = pack/plugins/start/vim-markdown-folding
 	url = https://github.com/mikeboiko/vim-markdown-folding
+[submodule "pack/plugins/start/vim-liquid"]
+	path = pack/plugins/start/vim-liquid
+	url = https://github.com/tpope/vim-liquid
