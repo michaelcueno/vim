@@ -30,14 +30,33 @@ if exists('g:vscode')
   nnoremap <leader>t <Cmd>call VSCodeNotify('workbench.view.explorer')<CR>
   nnoremap <leader>gh <Cmd>call VSCodeNotify('openInGithub.openInGitHubFile')<CR>
   nnoremap <leader>ag <Cmd>call VSCodeNotify('runInSearchPanel', {'filesToInclude': '${workspaceFolder}', 'triggerSearch': true })<CR>
-else 
+
+  " Folding
+  nnoremap <silent> za <Cmd>call VSCodeNotify('editor.toggleFold')<CR>
+  nnoremap <silent> zR <Cmd>call VSCodeNotify('editor.unfoldAll')<CR>
+  nnoremap <silent> zM <Cmd>call VSCodeNotify('editor.foldAll')<CR>
+  nnoremap <silent> zo <Cmd>call VSCodeNotify('editor.unfold')<CR>
+  nnoremap <silent> zO <Cmd>call VSCodeNotify('editor.unfoldRecursively')<CR>
+  nnoremap <silent> zc <Cmd>call VSCodeNotify('editor.fold')<CR>
+  nnoremap <silent> zC <Cmd>call VSCodeNotify('editor.foldRecursively')<CR>
+elseif has('nvim')
+  packadd plenary.nvim
+  packadd diffview.nvim
   packadd vim-fugitive
-  packadd coc.nvim  " wierd I know .. 
+  packadd coc.nvim  
+  packadd copilot.vim
+  packadd vim-markdown-preview
+  nnoremap <leader>m :call Vim_Markdown_Preview()<CR> 
 endif
 
 "--------------------------------------------------------------------------- 
 " PLUGIN SETTINGS
 "--------------------------------------------------------------------------- 
+"-- Xbase
+if has('nvim')
+  lua require'xbase'.setup()
+endif
+" ---- Not sure...
 let g:sw_exe = '/Applications/SQLWorkbenchJ.app/Contents/Java/sqlwbconsole.sh'
 let g:sw_config_dir = '~/.sqlworkbench/'
 let g:sw_cache = '~/.cache/sw/'
@@ -52,14 +71,26 @@ autocmd FileType markdown let b:coc_suggest_disable = 1 " Turn off for filetypes
 let vim_markdown_preview_hotkey='<C-m>' 
 let vim_markdown_preview_browser='Google Chrome' 
 let vim_markdown_preview_github=1
-nnoremap <leader>m :call Vim_Markdown_Preview()<CR> 
 
 "-- lightline 
 let g:lightline = {
       \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'absolutepath', 'modified' ] ],
+      \   'left': [ [ 'mode', 'paste' ], 
+      \             [ 'gitbranch', 'readonly', 'absolutepath', 'modified' ] ],
+      \   'right': [
+      \              [ 'projectroot' ],
+      \            ]
+      \  },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead',
+      \   'projectroot': 'ProjectRootForLightLine'
+      \  }
       \ }
-      \ }
+" -- get project root directory name 
+function! ProjectRootForLightLine() 
+  let dir = finddir('.git/..', expand('%:p:h').';')
+  return fnamemodify(dir, ':t')
+endfunction
 
 "-- ctags 
 let g:gutentags_add_default_project_roots = 0
@@ -202,7 +233,13 @@ set ignorecase		" ignore case when searching
 set smartcase		" ignore case if search pattern is all lowercase,case-sensitive otherwise
 set smarttab		" insert tabs on the start of a line according to context
 set undofile            " Save undo's after file closes
-set undodir=~/.vim/undodir
+if has('nvim')
+  set undodir=~/.nvim/undodir
+  set shadafile=~/.nvim/.viminfo
+else 
+  set undodir=~/.vim/undodir
+  set viminfofile=~/.vim/.viminfo
+endif
 set undolevels=500      " How many undos
 set undoreload=10000    " Number of lines to save for undos
 set backupdir=.backup/,~/tmp//,/tmp//
@@ -251,6 +288,7 @@ endfunction
 
 " Map git blame 
 map <leader>b :Git blame<CR>
+map <leader>gs :Git show <cword><CR>
 
 " open the error console
 map <leader>cc :botright cope<CR> 
@@ -390,11 +428,6 @@ xnoremap <leader>el :call OpenInEnglogs()<CR>
 "--------------------------------------------------------------------------- 
 " Working
 
-" Open the current file in Chrome in OSX from Vim
-" Add this to ~/.vimrc
-" Usage: `:Browse`
-command Browse  expand('%:p')
-
 " Not working 
 function! s:get_visual_selection()
     " Why is this not a built-in Vim script function?!
@@ -451,3 +484,4 @@ nnoremap ,intv :-1read /Users/michael/.vim/snippets/intv<CR>
 nnoremap ,intc :-1read /Users/michael/.vim/snippets/intc<CR>
 nnoremap ,intt :-1read /Users/michael/.vim/snippets/intt<CR>
 nnoremap ,row :-1read /Users/michael/.vim/snippets/row<CR>
+nnoremap ,ncomp :-1read /Users/michael/.vim/snippets/ncomp<CR>8jo<CR>

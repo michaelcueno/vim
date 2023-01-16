@@ -1,0 +1,15 @@
+import { View, ViewStyle } from 'react-native';
+
+interface Props { 
+  style?: ViewStyle;
+}
+
+const Comp = ({ style }: Props) => {
+  return (
+    <View style={style}>
+    </View>
+  );
+}
+
+export default Comp;
+

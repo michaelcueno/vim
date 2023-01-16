@@ -10,3 +10,4 @@ pack/plugins/opt
 snippets/int*
 pack/plugins/start/vim-terraform/
 pack/plugins/start/vim-pug/
+.viminfo*
