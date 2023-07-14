@@ -44,7 +44,7 @@ elseif has('nvim')
   packadd diffview.nvim
   packadd vim-fugitive
   packadd coc.nvim  
-  packadd copilot.vim
+"  packadd copilot.vim
   packadd vim-markdown-preview
   nnoremap <leader>m :call Vim_Markdown_Preview()<CR> 
 endif
@@ -52,6 +52,11 @@ endif
 "--------------------------------------------------------------------------- 
 " PLUGIN SETTINGS
 "--------------------------------------------------------------------------- 
+map <leader>l :LaunchOptions<CR>
+
+"-- local vim
+let g:localvimrc_whitelist='~/code/*'
+
 "-- Xbase
 if has('nvim')
   lua require'xbase'.setup()
@@ -189,6 +194,10 @@ if !exists('g:vscode')
   nmap <leader>rn <Plug>(coc-rename)
 endif
 
+" COC - fixes....
+
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 "--------------------------------------------------------------------------- 
 
@@ -196,6 +205,7 @@ endif
 " Custom Colors 
 "--------------------------------------------------------------------------- 
 colorscheme gruvbox
+"colorscheme pyte
 highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
 highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
 highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
@@ -289,6 +299,7 @@ endfunction
 " Map git blame 
 map <leader>b :Git blame<CR>
 map <leader>gs :Git show <cword><CR>
+map <leader>gd :Gvdiff master<CR>
 
 " open the error console
 map <leader>cc :botright cope<CR> 
@@ -301,14 +312,10 @@ map <leader>[ :cp<CR>
 map <C-g> :let mycurf=expand("<cfile>")<cr><c-w> w :execute("e ".mycurf)<cr><c-w>p
 
 " --- move around splits {
-" move to and maximize the below split 
-map <C-J> <C-W>j<C-W>_
-" move to and maximize the above split 
-map <C-K> <C-W>k<C-W>_
-" move to and maximize the left split 
-nmap <c-h> <c-w>h<c-w><bar>
-" move to and maximize the right split  
-nmap <c-l> <c-w>l<c-w><bar>
+map <C-J> <C-W>j
+map <C-K> <C-W>k
+nmap <c-h> <c-w>h
+nmap <c-l> <c-w>l
 set wmw=0                     " set the min width of a window to 0 so we can maximize others 
 set wmh=0                     " set the min height of a window to 0 so we can maximize others
 " }
@@ -485,3 +492,6 @@ nnoremap ,intc :-1read /Users/michael/.vim/snippets/intc<CR>
 nnoremap ,intt :-1read /Users/michael/.vim/snippets/intt<CR>
 nnoremap ,row :-1read /Users/michael/.vim/snippets/row<CR>
 nnoremap ,ncomp :-1read /Users/michael/.vim/snippets/ncomp<CR>8jo<CR>
+
+nnoremap , :-1read /Users/michael/.vim/snippets/<CR>
+nnoremap ,opt :-1read /Users/michael/.vim/snippets/opt<CR>

@@ -1,0 +1,27 @@
+usage() {
+  echo
+  echo "  Usage: "
+  echo
+  echo "  -h print this message"
+  echo
+}
+
+# May be overwritten in options processing below.
+EXAMPLE="cool"
+
+while getopts ":p:dsh" opt; do
+  case $opt in
+    e)
+      EXAMPLE=$OPTARG
+      ;;
+    h)
+      usage
+      exit 0
+      ;;  
+    *)
+      echo "invalid command: no parameter included with argument $OPTARG"      
+      usage
+      exit 1
+      ;;
+  esac
+done
