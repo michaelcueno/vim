@@ -30,6 +30,12 @@ if exists('g:vscode')
   nnoremap <leader>t <Cmd>call VSCodeNotify('workbench.view.explorer')<CR>
   nnoremap <leader>gh <Cmd>call VSCodeNotify('openInGithub.openInGitHubFile')<CR>
   nnoremap <leader>ag <Cmd>call VSCodeNotify('runInSearchPanel', {'filesToInclude': '${workspaceFolder}', 'triggerSearch': true })<CR>
+  " Git lens
+  map <leader>gc <Cmd>call VSCodeNotify('gitlens.compareHeadWith')<CR>
+  map <leader>gs <Cmd>call VSCodeNotify('gitlens.showCommitInView')<CR>
+  map <C-y> <TAB>
+  map <leader>gd <Cmd>call VSCodeNotify('gitlens.diffLineWithWorking')<CR>
+
 
   " Folding
   nnoremap <silent> za <Cmd>call VSCodeNotify('editor.toggleFold')<CR>
@@ -46,7 +52,14 @@ elseif has('nvim')
   packadd coc.nvim  
 "  packadd copilot.vim
   packadd vim-markdown-preview
+  packadd vim-visual-multi
   nnoremap <leader>m :call Vim_Markdown_Preview()<CR> 
+
+  " Map git blame 
+  map <leader>b :Git blame<CR>
+  map <leader>gs :Git show <cword><CR>
+  map <leader>gd :Gvdiff master<CR>
+
 endif
 
 "--------------------------------------------------------------------------- 
@@ -55,7 +68,7 @@ endif
 map <leader>l :LaunchOptions<CR>
 
 "-- local vim
-let g:localvimrc_whitelist='~/code/*'
+let g:localvimrc_whitelist='/Users/michael/code/.*'
 
 "-- Xbase
 if has('nvim')
@@ -296,11 +309,6 @@ function! BranchName ()
   echo g:branchName
 endfunction
 
-" Map git blame 
-map <leader>b :Git blame<CR>
-map <leader>gs :Git show <cword><CR>
-map <leader>gd :Gvdiff master<CR>
-
 " open the error console
 map <leader>cc :botright cope<CR> 
 " move to next error
@@ -471,27 +479,24 @@ fu! Loadit()
   endif
 endfunction
 
+
 "--------------------------------------------------------------------------- 
 " SNIPPETS
 "--------------------------------------------------------------------------- 
-nnoremap ,desc :-1read $HOME/.vim/snippets/describe<CR>10li
-nnoremap ,it :-1read $HOME/.vim/snippets/it<CR>4li
-nnoremap ,trap :-1read /Users/michael/.vim/snippets/trap<CR>o
-nnoremap ,1on1 :-1read /Users/michael/.vim/snippets/1on1<CR>jA
-nnoremap ,do :-1read /Users/michael/.vim/snippets/do<CR>:pu=' -'<CR>:pu=strftime('%m/%d')<CR>kkJJhhi 
-nnoremap ,line :-1read /Users/michael/.vim/snippets/line<CR>
-nnoremap ,impc :-1read /Users/michael/.vim/snippets/const<CR>
-nnoremap ,nca :-1read /Users/michael/.vim/snippets/nca<CR>
-nnoremap ,uml :-1read /Users/michael/.vim/snippets/uml<CR>
-nnoremap ,con :-1read /Users/michael/.vim/snippets/con<CR>30li
-nnoremap ,comp :-1read /Users/michael/.vim/snippets/comp<CR>8jw<CR>
-nnoremap ,int :-1read /Users/michael/.vim/snippets/int<CR>
-nnoremap ,inta :-1read /Users/michael/.vim/snippets/inta<CR>
-nnoremap ,intv :-1read /Users/michael/.vim/snippets/intv<CR>
-nnoremap ,intc :-1read /Users/michael/.vim/snippets/intc<CR>
-nnoremap ,intt :-1read /Users/michael/.vim/snippets/intt<CR>
-nnoremap ,row :-1read /Users/michael/.vim/snippets/row<CR>
-nnoremap ,ncomp :-1read /Users/michael/.vim/snippets/ncomp<CR>8jo<CR>
-
-nnoremap , :-1read /Users/michael/.vim/snippets/<CR>
-nnoremap ,opt :-1read /Users/michael/.vim/snippets/opt<CR>
+nnoremap ,sd :-1read $HOME/.vim/snippets/describe<CR>10li
+nnoremap ,si :-1read $HOME/.vim/snippets/it<CR>4li
+nnoremap ,dtrap :-1read /Users/michael/.vim/snippets/trap<CR>o
+nnoremap ,s1 :-1read /Users/michael/.vim/snippets/1on1<CR>jA
+nnoremap ,sdo :-1read /Users/michael/.vim/snippets/do<CR>:pu=' -'<CR>:pu=strftime('%m/%d')<CR>kkJJhhi 
+nnoremap ,sl :-1read /Users/michael/.vim/snippets/line<CR>
+nnoremap ,su :-1read /Users/michael/.vim/snippets/uml<CR>
+nnoremap ,slog :-1read /Users/michael/.vim/snippets/con<CR>30li
+nnoremap ,sco :-1read /Users/michael/.vim/snippets/comp<CR>8jw<CR>
+nnoremap ,sint :-1read /Users/michael/.vim/snippets/int<CR>
+nnoremap ,sinta :-1read /Users/michael/.vim/snippets/inta<CR>
+nnoremap ,sintv :-1read /Users/michael/.vim/snippets/intv<CR>
+nnoremap ,sintc :-1read /Users/michael/.vim/snippets/intc<CR>
+nnoremap ,sintt :-1read /Users/michael/.vim/snippets/intt<CR>
+nnoremap ,srow :-1read /Users/michael/.vim/snippets/row<CR>
+nnoremap ,snco :-1read /Users/michael/.vim/snippets/ncomp<CR>8jo<CR>
+nnoremap ,sopt :-1read /Users/michael/.vim/snippets/opt<CR>

@@ -1,1 +1,0 @@
-import { NewCarrierApplication as NewCarrierApplicationConstants } from '@convoy/constants';
