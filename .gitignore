@@ -4,6 +4,7 @@ unused
 backup
 **/*.DS_Store
 sesh
+pack/plugins/opt
 
 # Work stuff that should remain private
 snippets/int*
