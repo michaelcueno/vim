@@ -16,6 +16,9 @@
 [submodule "pack/plugins/start/gruvbox"]
 	path = pack/plugins/start/gruvbox
 	url = https://github.com/morhetz/gruvbox
+[submodule "pack/plugins/start/localvimrc"]
+	path = pack/plugins/start/vim-localvimrc
+  url = https://github.com/embear/vim-localvimrc
 [submodule "pack/plugins/start/nerdtree"]
 	path = pack/plugins/start/nerdtree
 	url = https://github.com/preservim/nerdtree.git
