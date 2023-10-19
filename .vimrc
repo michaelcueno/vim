@@ -86,11 +86,6 @@ map <leader>l :LaunchOptions<CR>
 let g:localvimrc_whitelist='/Users/michael/code/.*'
 
 
-
-"-- Xbase
-if has('nvim')
-  lua require'xbase'.setup()
-endif
 " ---- Not sure...
 let g:sw_exe = '/Applications/SQLWorkbenchJ.app/Contents/Java/sqlwbconsole.sh'
 let g:sw_config_dir = '~/.sqlworkbench/'
