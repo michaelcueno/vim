@@ -1,3 +1,6 @@
+[submodule "pack/plugins/opt/plenary.nvim"]
+	path = pack/plugins/opt/plenary.nvim
+	url =https://github.com/nvim-lua/plenary.nvim
 [submodule "pack/plugins/start/fzf"]
 	path = pack/plugins/start/fzf
 	url = https://github.com/junegunn/fzf.git
@@ -17,14 +20,11 @@
 	path = pack/plugins/start/nerdtree
 	url = https://github.com/preservim/nerdtree.git
 [submodule "pack/plugins/start/vim-fugitive"]
-	path = pack/plugins/start/vim-fugitive
+	path = pack/plugins/opt/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
 [submodule "pack/plugins/start/vim-gutentags"]
 	path = pack/plugins/start/vim-gutentags
 	url = https://github.com/ludovicchabant/vim-gutentags.git
-[submodule "pack/plugins/start/vim-markdown-preview"]
-	path = pack/plugins/start/vim-markdown-preview
-	url = https://github.com/JamshedVesuna/vim-markdown-preview
 [submodule "pack/plugins/start/vim-surround"]
 	path = pack/plugins/start/vim-surround
 	url = https://github.com/tpope/vim-surround
@@ -52,9 +52,6 @@
 [submodule "pack/plugins/start/vim-graphql"]
 	path = pack/plugins/start/vim-graphql
 	url = https://github.com/jparise/vim-graphql.git
-[submodule "pack/plugins/start/vim-markdown-folding"]
-	path = pack/plugins/start/vim-markdown-folding
-	url = https://github.com/mikeboiko/vim-markdown-folding
 [submodule "pack/plugins/start/vim-liquid"]
 	path = pack/plugins/start/vim-liquid
 	url = https://github.com/tpope/vim-liquid
