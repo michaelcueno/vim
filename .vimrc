@@ -65,10 +65,27 @@ endif
 "--------------------------------------------------------------------------- 
 " PLUGIN SETTINGS
 "--------------------------------------------------------------------------- 
+"-- Copilot 
+" Toggle Copilot on or off 
+let g:copilot_enabled = 1
+function! ToggleCopilot() 
+  if exists('g:copilot_enabled') && g:copilot_enabled == 1
+    let g:copilot_enabled = 0
+    echo "Copilot disabled"
+  else 
+    let g:copilot_enabled = 1
+    echo "Copilot enabled"
+  endif
+endfunction
+map <leader>fp :call ToggleCopilot()<CR>
+map <leader>fc :call ToggleCopilot()<CR>
+
 map <leader>l :LaunchOptions<CR>
 
 "-- local vim
 let g:localvimrc_whitelist='/Users/michael/code/.*'
+
+
 
 "-- Xbase
 if has('nvim')
@@ -417,18 +434,6 @@ function! Hey()
 endfunction
 
 "--------------------------------------------------------------------------- 
-" Plugin Idea - Open line of code in sourcegraph
-"--------------------------------------------------------------------------- 
-" This doesn't work...
-function! OpenInSourceGraph()
-  let reponame = system('basename $(git rev-parse --show-toplevel)')
-  let s:uri = "https://sourcegraph.convoy.com/github.com/convoyinc/".reponame
-  echo s:uri
-  silent exec "!open '".s:uri."'"
-endfunction
-map <leader>sr :call OpenInSourceGraph()<cr>
-
-"--------------------------------------------------------------------------- 
 " Plugin Idea - Open selected text on SourceGraph
 "--------------------------------------------------------------------------- 
 fu! OpenInEnglogs() 
@@ -483,20 +488,20 @@ endfunction
 "--------------------------------------------------------------------------- 
 " SNIPPETS
 "--------------------------------------------------------------------------- 
-nnoremap ,sd :-1read $HOME/.vim/snippets/describe<CR>10li
-nnoremap ,si :-1read $HOME/.vim/snippets/it<CR>4li
-nnoremap ,dtrap :-1read /Users/michael/.vim/snippets/trap<CR>o
-nnoremap ,s1 :-1read /Users/michael/.vim/snippets/1on1<CR>jA
-nnoremap ,sdo :-1read /Users/michael/.vim/snippets/do<CR>:pu=' -'<CR>:pu=strftime('%m/%d')<CR>kkJJhhi 
-nnoremap ,sl :-1read /Users/michael/.vim/snippets/line<CR>
-nnoremap ,su :-1read /Users/michael/.vim/snippets/uml<CR>
-nnoremap ,slog :-1read /Users/michael/.vim/snippets/con<CR>30li
-nnoremap ,sco :-1read /Users/michael/.vim/snippets/comp<CR>8jw<CR>
-nnoremap ,sint :-1read /Users/michael/.vim/snippets/int<CR>
-nnoremap ,sinta :-1read /Users/michael/.vim/snippets/inta<CR>
-nnoremap ,sintv :-1read /Users/michael/.vim/snippets/intv<CR>
-nnoremap ,sintc :-1read /Users/michael/.vim/snippets/intc<CR>
-nnoremap ,sintt :-1read /Users/michael/.vim/snippets/intt<CR>
-nnoremap ,srow :-1read /Users/michael/.vim/snippets/row<CR>
-nnoremap ,snco :-1read /Users/michael/.vim/snippets/ncomp<CR>8jo<CR>
-nnoremap ,sopt :-1read /Users/michael/.vim/snippets/opt<CR>
+nnoremap <leader>sd :-1read $HOME/.vim/snippets/describe<CR>10li
+nnoremap <leader>si :-1read $HOME/.vim/snippets/it<CR>4li
+nnoremap <leader>dtrap :-1read /Users/michael/.vim/snippets/trap<CR>o
+nnoremap <leader>s1 :-1read /Users/michael/.vim/snippets/1on1<CR>jA
+nnoremap <leader>sdo :-1read /Users/michael/.vim/snippets/do<CR>:pu=' -'<CR>:pu=strftime('%m/%d')<CR>kkJJhhi 
+nnoremap <leader>sl :-1read /Users/michael/.vim/snippets/line<CR>
+nnoremap <leader>su :-1read /Users/michael/.vim/snippets/uml<CR>
+nnoremap <leader>slog :-1read /Users/michael/.vim/snippets/con<CR>30li
+nnoremap <leader>sco :-1read /Users/michael/.vim/snippets/comp<CR>8jw<CR>
+nnoremap <leader>sint :-1read /Users/michael/.vim/snippets/int<CR>
+nnoremap <leader>sinta :-1read /Users/michael/.vim/snippets/inta<CR>
+nnoremap <leader>sintv :-1read /Users/michael/.vim/snippets/intv<CR>
+nnoremap <leader>sintc :-1read /Users/michael/.vim/snippets/intc<CR>
+nnoremap <leader>sintt :-1read /Users/michael/.vim/snippets/intt<CR>
+nnoremap <leader>srow :-1read /Users/michael/.vim/snippets/row<CR>
+nnoremap <leader>snco :-1read /Users/michael/.vim/snippets/ncomp<CR>8jo<CR>
+nnoremap <leader>sopt :-1read /Users/michael/.vim/snippets/opt<CR>
