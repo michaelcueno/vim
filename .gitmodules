@@ -1,42 +1,42 @@
-[submodule "pack/mcueno/start/fzf"]
+[submodule "pack/plugins/start/fzf"]
 	path = pack/plugins/start/fzf
 	url = https://github.com/junegunn/fzf.git
-[submodule "pack/mcueno/start/coc.nvim"]
-	path = pack/mcueno/start/coc.nvim
+[submodule "pack/plugins/opt/coc.nvim"]
+	path = pack/plugins/opt/coc.nvim
 	url = https://github.com/neoclide/coc.nvim
-[submodule "pack/mcueno/start/fzf.vim"]
+[submodule "pack/plugins/opt/diffview.nvim"]
+	path = pack/plugins/opt/diffview.nvim
+	url = https://github.com/sindrets/diffview.nvim 
+[submodule "pack/plugins/start/fzf.vim"]
 	path = pack/plugins/start/fzf.vim
 	url = https://github.com/junegunn/fzf.vim.git
-[submodule "pack/mcueno/start/gruvbox"]
+[submodule "pack/plugins/start/gruvbox"]
 	path = pack/plugins/start/gruvbox
 	url = https://github.com/morhetz/gruvbox
-[submodule "pack/mcueno/start/nerdtree"]
+[submodule "pack/plugins/start/nerdtree"]
 	path = pack/plugins/start/nerdtree
 	url = https://github.com/preservim/nerdtree.git
-[submodule "pack/mcueno/start/vim-fugitive"]
+[submodule "pack/plugins/start/vim-fugitive"]
 	path = pack/plugins/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
-[submodule "pack/mcueno/start/vim-gutentags"]
+[submodule "pack/plugins/start/vim-gutentags"]
 	path = pack/plugins/start/vim-gutentags
 	url = https://github.com/ludovicchabant/vim-gutentags.git
-[submodule "pack/mcueno/start/vim-markdown-preview"]
+[submodule "pack/plugins/start/vim-markdown-preview"]
 	path = pack/plugins/start/vim-markdown-preview
 	url = https://github.com/JamshedVesuna/vim-markdown-preview
-[submodule "pack/mcueno/start/vim-surround"]
+[submodule "pack/plugins/start/vim-surround"]
 	path = pack/plugins/start/vim-surround
 	url = https://github.com/tpope/vim-surround
-[submodule "pack/mcueno/start/vim-visual-multi"]
+[submodule "pack/plugins/start/vim-visual-multi"]
 	path = pack/plugins/start/vim-visual-multi
 	url = https://github.com/mg979/vim-visual-multi.git
 [submodule "pack/typescript/start/typescript-vim"]
 	path = pack/typescript/start/typescript-vim
 	url = https://github.com/leafgarland/typescript-vim.git
-[submodule "pack/mcueno/start/lightline"]
+[submodule "pack/plugins/start/lightline"]
 	path = pack/plugins/start/lightline
 	url = https://github.com/itchyny/lightline.vim
-[submodule "pack/plugins/start/coc.nvim"]
-	path = pack/plugins/start/coc.nvim
-	url = https://github.com/neoclide/coc.nvim
 [submodule "pack/plugins/start/plantuml-previewer"]
 	path = pack/plugins/start/plantuml-previewer
 	url = https://github.com/weirongxu/plantuml-previewer.vim
