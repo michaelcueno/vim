@@ -51,9 +51,7 @@ elseif has('nvim')
   packadd vim-fugitive
   packadd coc.nvim  
 "  packadd copilot.vim
-  packadd vim-markdown-preview
   packadd vim-visual-multi
-  nnoremap <leader>m :call Vim_Markdown_Preview()<CR> 
 
   " Map git blame 
   map <leader>b :Git blame<CR>
@@ -98,9 +96,6 @@ nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
 "-- markdown folding 
 autocmd FileType markdown set foldexpr=NestedMarkdownFolds()
 autocmd FileType markdown let b:coc_suggest_disable = 1 " Turn off for filetypes
-let vim_markdown_preview_hotkey='<C-m>' 
-let vim_markdown_preview_browser='Google Chrome' 
-let vim_markdown_preview_github=1
 
 "-- lightline 
 let g:lightline = {
@@ -230,7 +225,7 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " Custom Colors 
 "--------------------------------------------------------------------------- 
 colorscheme gruvbox
-"colorscheme pyte
+" colorscheme Dark
 highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
 highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
 highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red

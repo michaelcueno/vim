@@ -1,5 +1,11 @@
 # To install
 
+```
+git clone git@github.com:michaelcueno/vim.git
+mkdir .config/nvim
+mv vim .config/nvim
+```
+
 ``` 
 git submodule update --init --recursive
 ```
