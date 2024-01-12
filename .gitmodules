@@ -61,3 +61,9 @@
 [submodule "pack/plugins/start/copilot.vim"]
 	path = pack/plugins/start/copilot.vim
 	url = https://github.com/github/copilot.vim
+[submodule "pack/plugins/start/vim-dadbod"]
+	path = pack/plugins/start/vim-dadbod
+	url = https://github.com/tpope/vim-dadbod
+[submodule "pack/plugins/start/vim-dadbod-ui"]
+	path = pack/plugins/start/vim-dadbod-ui
+	url = https://github.com/kristijanhusak/vim-dadbod-ui
