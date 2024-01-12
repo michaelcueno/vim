@@ -81,7 +81,8 @@ map <leader>fc :call ToggleCopilot()<CR>
 map <leader>l :LaunchOptions<CR>
 
 "-- local vim
-let g:localvimrc_whitelist='/Users/michael/code/.*'
+let g:localvimrc_whitelist=glob('~/code/*', 0 ,1)
+let g:localvimrc_sandbox=0
 
 
 " ---- Not sure...
