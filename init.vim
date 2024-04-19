@@ -1,4 +1,5 @@
 " General Settings
+lua require('config')
 
 set nocompatible	" not compatible with the old-fashion vi mode
 set bs=2		" allow backspacing over everything in insert mode
@@ -10,7 +11,7 @@ set showcmd
 set noshowmode
 set laststatus=2
 " set autochdir         " auto set working directory to the current file -breaks git 
-set foldmethod=syntax
+" set foldmethod=syntax " Try using tree-sitter
 set foldlevelstart=20
 set nomodeline          " Annoying error ex: 
 
@@ -91,6 +92,9 @@ nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
 map <C-p> :GFiles --cached --others --exclude-standard <CR>
 
 "-- markdown folding 
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+set nofoldenable                     " Disable folding at startup.
 autocmd FileType markdown set foldexpr=NestedMarkdownFolds()
 autocmd FileType markdown let b:coc_suggest_disable = 1 " Turn off for filetypes
 
@@ -244,7 +248,7 @@ filetype plugin on    " Enable filetype-specific plugins
 " auto reload vimrc when editing it
 autocmd! bufwritepost .vimrc source ~/.vim/.vimrc
 
-syntax on " syntax highlight
+" syntax on " syntax highlight --- try using tree-sitter
 set re=0
 set hlsearch		" search highlighting
 

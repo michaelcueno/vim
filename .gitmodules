@@ -76,3 +76,6 @@
 [submodule "pack/plugins/start/papercolor-theme"]
 	path = pack/plugins/start/papercolor-theme
 	url = https://github.com/NLKNguyen/papercolor-theme.git
+[submodule "pack/plugins/start/nvim-treesitter"]
+	path = pack/plugins/start/nvim-treesitter
+	url = https://github.com/nvim-treesitter/nvim-treesitter

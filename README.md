@@ -23,5 +23,3 @@ alias vim='vim -u ~/.vim/.vimrc'
 ```
 git submodule add <remote_url> <destination_folder>
 ```
-# TODO 
-[ ] Add treesitter
