@@ -1,5 +1,6 @@
 {
   "suggest.autoTrigger": "none",
   "tsserver.maxTsServerMemory": 4096,
-  "coc.preferences.jumpCommand": "drop"
+  "coc.preferences.jumpCommand": "drop",
+  "typescript.preferences.importModuleSpecifier": "relative"
 }

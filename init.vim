@@ -30,6 +30,7 @@ if exists('g:vscode')
   nnoremap <leader>t <Cmd>call VSCodeNotify('workbench.view.explorer')<CR>
   nnoremap <leader>gh <Cmd>call VSCodeNotify('openInGithub.openInGitHubFile')<CR>
   nnoremap <leader>ag <Cmd>call VSCodeNotify('runInSearchPanel', {'filesToInclude': '${workspaceFolder}', 'triggerSearch': true })<CR>
+
   " Git lens
   map <leader>gc <Cmd>call VSCodeNotify('gitlens.compareHeadWith')<CR>
   map <leader>gs <Cmd>call VSCodeNotify('gitlens.showCommitInView')<CR>
@@ -56,7 +57,7 @@ elseif has('nvim')
   " Map git blame 
   map <leader>b :Git blame<CR>
   map <leader>gs :Git show <cword><CR>
-  map <leader>gd :Gvdiff master<CR>
+  map <leader>gd :Gvdiff main<CR>
 
 endif
 
@@ -85,14 +86,9 @@ let g:localvimrc_whitelist=glob('~/code/*', 0 ,1)
 let g:localvimrc_sandbox=0
 
 
-" ---- Not sure...
-let g:sw_exe = '/Applications/SQLWorkbenchJ.app/Contents/Java/sqlwbconsole.sh'
-let g:sw_config_dir = '~/.sqlworkbench/'
-let g:sw_cache = '~/.cache/sw/'
-map <C-p> :GFiles --cached --others --exclude-standard <CR>
-
 "-- fzf 
 nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
+map <C-p> :GFiles --cached --others --exclude-standard <CR>
 
 "-- markdown folding 
 autocmd FileType markdown set foldexpr=NestedMarkdownFolds()
@@ -215,6 +211,10 @@ if !exists('g:vscode')
   nmap <leader>rn <Plug>(coc-rename)
 endif
 
+" In insert mode, use 'j' and 'k' for navigating Coc's suggestion window
+inoremap <expr> j pumvisible() ? "\<C-n>" : "j"
+inoremap <expr> k pumvisible() ? "\<C-p>" : "k"
+
 " COC - fixes....
 
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -225,8 +225,9 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 "--------------------------------------------------------------------------- 
 " Custom Colors 
 "--------------------------------------------------------------------------- 
-colorscheme gruvbox
-" colorscheme Dark
+set t_Co=256   " This is may or may not needed.
+set background=dark " or dark
+colorscheme PaperColor
 highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
 highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
 highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
@@ -479,20 +480,21 @@ endfunction
 "--------------------------------------------------------------------------- 
 " SNIPPETS
 "--------------------------------------------------------------------------- 
-nnoremap <leader>sd :-1read $HOME/.vim/snippets/describe<CR>10li
-nnoremap <leader>si :-1read $HOME/.vim/snippets/it<CR>4li
-nnoremap <leader>dtrap :-1read /Users/michael/.vim/snippets/trap<CR>o
-nnoremap <leader>s1 :-1read /Users/michael/.vim/snippets/1on1<CR>jA
-nnoremap <leader>sdo :-1read /Users/michael/.vim/snippets/do<CR>:pu=' -'<CR>:pu=strftime('%m/%d')<CR>kkJJhhi 
-nnoremap <leader>sl :-1read /Users/michael/.vim/snippets/line<CR>
-nnoremap <leader>su :-1read /Users/michael/.vim/snippets/uml<CR>
-nnoremap <leader>slog :-1read /Users/michael/.vim/snippets/con<CR>30li
-nnoremap <leader>sco :-1read /Users/michael/.vim/snippets/comp<CR>8jw<CR>
-nnoremap <leader>sint :-1read /Users/michael/.vim/snippets/int<CR>
-nnoremap <leader>sinta :-1read /Users/michael/.vim/snippets/inta<CR>
-nnoremap <leader>sintv :-1read /Users/michael/.vim/snippets/intv<CR>
-nnoremap <leader>sintc :-1read /Users/michael/.vim/snippets/intc<CR>
-nnoremap <leader>sintt :-1read /Users/michael/.vim/snippets/intt<CR>
-nnoremap <leader>srow :-1read /Users/michael/.vim/snippets/row<CR>
-nnoremap <leader>snco :-1read /Users/michael/.vim/snippets/ncomp<CR>8jo<CR>
-nnoremap <leader>sopt :-1read /Users/michael/.vim/snippets/opt<CR>
+let s:snips_dir = expand('~/.config/nvim/snippets')
+nnoremap <leader>sco :-1read $HOME/.config/nvim/snippets/comp<CR>8jw<CR>
+nnoremap <leader>sd :-1read $HOME/.config/nvim/snippets/describe<CR>10li
+nnoremap <leader>si :-1read $HOME/.config/nvim/snippets/it<CR>4li
+nnoremap <leader>dtrap :-1read $HOME/.config/nvim/snippets/trap<CR>o
+nnoremap <leader>s1 :-1read $HOME/.config/nvim/snippets/1on1<CR>jA
+nnoremap <leader>sdo :-1read $HOME/.config/nvim/snippets/do<CR>:pu=' -'<CR>:pu=strftime('%m/%d')<CR>kkJJhhi 
+nnoremap <leader>sl :-1read $HOME/.config/nvim/snippets/line<CR>
+nnoremap <leader>su :-1read $HOME/.config/nvim/snippets/uml<CR>
+nnoremap <leader>slog :-1read $HOME/.config/nvim/snippets/con<CR>30li
+nnoremap <leader>sint :-1read $HOME/.config/nvim/snippets/int<CR>
+nnoremap <leader>sinta :-1read $HOME/.config/nvim/snippets/inta<CR>
+nnoremap <leader>sintv :-1read $HOME/.config/nvim/snippets/intv<CR>
+nnoremap <leader>sintc :-1read $HOME/.config/nvim/snippets/intc<CR>
+nnoremap <leader>sintt :-1read $HOME/.config/nvim/snippets/intt<CR>
+nnoremap <leader>srow :-1read $HOME/.config/nvim/snippets/row<CR>
+nnoremap <leader>snco :-1read $HOME/.config/nvim/snippets/ncomp<CR>8jo<CR>
+nnoremap <leader>sopt :-1read $HOME/.config/nvim/snippets/opt<CR>
