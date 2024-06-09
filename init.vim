@@ -10,6 +10,7 @@ set number
 set showcmd
 set noshowmode
 set laststatus=2
+set listchars=tab:>-,trail:·  " Show trailing whitespace
 " set autochdir         " auto set working directory to the current file -breaks git 
 " set foldmethod=syntax " Try using tree-sitter
 set foldlevelstart=20
@@ -91,12 +92,10 @@ let g:localvimrc_sandbox=0
 nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
 map <C-p> :GFiles --cached --others --exclude-standard <CR>
 
-"-- markdown folding 
+"-- folding 
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 set nofoldenable                     " Disable folding at startup.
-autocmd FileType markdown set foldexpr=NestedMarkdownFolds()
-autocmd FileType markdown let b:coc_suggest_disable = 1 " Turn off for filetypes
 
 "-- lightline 
 let g:lightline = {
@@ -230,7 +229,7 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " Custom Colors 
 "--------------------------------------------------------------------------- 
 set t_Co=256   " This is may or may not needed.
-set background=dark " or dark
+set background=dark  " light" or dark
 colorscheme PaperColor
 highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
 highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
@@ -457,6 +456,10 @@ function! s:get_visual_selection()
     let lines[0] = lines[0][column_start - 1:]
     return join(lines, "\n")
 endfunction
+
+"--------------------------------------------------------------------------- 
+" Define a custom command to copy the relative file path to clipboard
+nnoremap <leader>y :let @+ = expand('%')<CR>
 
 "--------------------------------------------------------------------------- 
 " Sessions
