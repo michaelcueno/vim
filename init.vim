@@ -247,6 +247,9 @@ filetype plugin on    " Enable filetype-specific plugins
 " auto reload vimrc when editing it
 autocmd! bufwritepost .vimrc source ~/.vim/.vimrc
 
+" To exit ternimal insert mode with just Ctrl-N
+tnoremap <C-n> <C-\><C-n>
+
 " syntax on " syntax highlight --- try using tree-sitter
 set re=0
 set hlsearch		" search highlighting
@@ -505,3 +508,9 @@ nnoremap <leader>sintt :-1read $HOME/.config/nvim/snippets/intt<CR>
 nnoremap <leader>srow :-1read $HOME/.config/nvim/snippets/row<CR>
 nnoremap <leader>snco :-1read $HOME/.config/nvim/snippets/ncomp<CR>8jo<CR>
 nnoremap <leader>sopt :-1read $HOME/.config/nvim/snippets/opt<CR>
+nnoremap , :-1read /Users/michaelcueno/.config/nvim/snippets/<CR>
+nnoremap ,sco :-1read /Users/michaelcueno/.config/nvim/snippets/sco<CR>
+nnoremap , :-1read /Users/michaelcueno/.config/nvim/snippets/<CR>
+nnoremap , :-1read /Users/michaelcueno/.config/nvim/snippets/<CR>
+nnoremap , :-1read /Users/michaelcueno/.config/nvim/snippets/<CR>
+nnoremap ,scom :-1read /Users/michaelcueno/.config/nvim/snippets/scom<CR>

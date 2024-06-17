@@ -1,17 +1,12 @@
-import styled from "@emotion/styled";
-
-const Root = styled.div({
-});
+import { Box } from "@mui/material";
 
 interface Props { 
 }
 
-const Comp = ({}: Props) => {
+export const Comp = ({}: Props) => {
   return (
-    <Root>
-    </Root>
+    <Box>
+    </Box>
   );
 }
-
-export default Comp;
 

@@ -82,3 +82,6 @@
 [submodule "pack/plugins/start/vim-css-color"]
 	path = pack/plugins/start/vim-css-color
 	url = https://github.com/ap/vim-css-color
+[submodule "pack/plugins/start/aider.nvim"]
+	path = pack/plugins/start/aider.nvim
+	url = https://github.com/joshuavial/aider.nvim.git
