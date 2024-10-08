@@ -12,8 +12,6 @@ set noshowmode
 set laststatus=2
 set listchars=tab:>-,trail:·  " Show trailing whitespace
 " set autochdir         " auto set working directory to the current file -breaks git 
-" set foldmethod=syntax " Try using tree-sitter
-set foldlevelstart=20
 set nomodeline          " Annoying error ex: 
 
 " set leader to ,
@@ -38,7 +36,6 @@ if exists('g:vscode')
   map <leader>gs <Cmd>call VSCodeNotify('gitlens.showCommitInView')<CR>
   map <C-y> <TAB>
   map <leader>gd <Cmd>call VSCodeNotify('gitlens.diffLineWithWorking')<CR>
-
 
   " Folding
   nnoremap <silent> za <Cmd>call VSCodeNotify('editor.toggleFold')<CR>
@@ -84,7 +81,9 @@ map <leader>fc :call ToggleCopilot()<CR>
 map <leader>l :LaunchOptions<CR>
 
 "-- local vim
-let g:localvimrc_whitelist=glob('~/code/*', 0 ,1)
+let whitelist_paths = glob('~/dev-tools/config/*', 0, 1)
+call add(whitelist_paths, '~/.journal/*')
+let g:localvimrc_whitelist = whitelist_paths
 let g:localvimrc_sandbox=0
 
 
@@ -93,8 +92,10 @@ nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
 map <C-p> :GFiles --cached --others --exclude-standard <CR>
 
 "-- folding 
-set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
+set foldmethod=syntax " Try using tree-sitter
+set foldlevelstart=20
+"set foldmethod=expr
+"set foldexpr=nvim_treesitter#foldexpr()
 set nofoldenable                     " Disable folding at startup.
 
 "-- lightline 
@@ -109,8 +110,10 @@ let g:lightline = {
       \ 'component_function': {
       \   'gitbranch': 'FugitiveHead',
       \   'projectroot': 'ProjectRootForLightLine'
-      \  }
+      \  },
+      \ 'colorscheme': 'PaperColor',
       \ }
+
 " -- get project root directory name 
 function! ProjectRootForLightLine() 
   let dir = finddir('.git/..', expand('%:p:h').';')
@@ -229,7 +232,7 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " Custom Colors 
 "--------------------------------------------------------------------------- 
 set t_Co=256   " This is may or may not needed.
-set background=dark  " light" or dark
+set background=dark " light" or dark
 colorscheme PaperColor
 highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
 highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
@@ -323,6 +326,10 @@ function! BranchName ()
   let g:branchName = system("git branch --show-current")
   echo g:branchName
 endfunction
+
+"Open notes
+map <leader>n :vsp<CR>:e ~/.journal/notes.md<CR>
+map <leader>do :vsp<CR>:e ~/.journal/todo.md<CR>
 
 " open the error console
 map <leader>cc :botright cope<CR> 
@@ -486,31 +493,6 @@ fu! Loadit()
   endif
 endfunction
 
+" Load other vimrc configs
+source ~/.config/nvim/config/snippets.vim
 
-"--------------------------------------------------------------------------- 
-" SNIPPETS
-"--------------------------------------------------------------------------- 
-let s:snips_dir = expand('~/.config/nvim/snippets')
-nnoremap <leader>sco :-1read $HOME/.config/nvim/snippets/comp<CR>8jw<CR>
-nnoremap <leader>sd :-1read $HOME/.config/nvim/snippets/describe<CR>10li
-nnoremap <leader>si :-1read $HOME/.config/nvim/snippets/it<CR>4li
-nnoremap <leader>dtrap :-1read $HOME/.config/nvim/snippets/trap<CR>o
-nnoremap <leader>s1 :-1read $HOME/.config/nvim/snippets/1on1<CR>jA
-nnoremap <leader>sdo :-1read $HOME/.config/nvim/snippets/do<CR>:pu=' -'<CR>:pu=strftime('%m/%d')<CR>kkJJhhi 
-nnoremap <leader>sl :-1read $HOME/.config/nvim/snippets/line<CR>
-nnoremap <leader>su :-1read $HOME/.config/nvim/snippets/uml<CR>
-nnoremap <leader>slog :-1read $HOME/.config/nvim/snippets/con<CR>30li
-nnoremap <leader>sint :-1read $HOME/.config/nvim/snippets/int<CR>
-nnoremap <leader>sinta :-1read $HOME/.config/nvim/snippets/inta<CR>
-nnoremap <leader>sintv :-1read $HOME/.config/nvim/snippets/intv<CR>
-nnoremap <leader>sintc :-1read $HOME/.config/nvim/snippets/intc<CR>
-nnoremap <leader>sintt :-1read $HOME/.config/nvim/snippets/intt<CR>
-nnoremap <leader>srow :-1read $HOME/.config/nvim/snippets/row<CR>
-nnoremap <leader>snco :-1read $HOME/.config/nvim/snippets/ncomp<CR>8jo<CR>
-nnoremap <leader>sopt :-1read $HOME/.config/nvim/snippets/opt<CR>
-nnoremap , :-1read /Users/michaelcueno/.config/nvim/snippets/<CR>
-nnoremap ,sco :-1read /Users/michaelcueno/.config/nvim/snippets/sco<CR>
-nnoremap , :-1read /Users/michaelcueno/.config/nvim/snippets/<CR>
-nnoremap , :-1read /Users/michaelcueno/.config/nvim/snippets/<CR>
-nnoremap , :-1read /Users/michaelcueno/.config/nvim/snippets/<CR>
-nnoremap ,scom :-1read /Users/michaelcueno/.config/nvim/snippets/scom<CR>
