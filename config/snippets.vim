@@ -13,3 +13,4 @@ nnoremap <leader>su :-1read $HOME/.config/nvim/snippets/uml<CR>
 nnoremap <leader>slog :-1read $HOME/.config/nvim/snippets/con<CR>30li
 nnoremap <leader>srow :-1read $HOME/.config/nvim/snippets/row<CR>
 nnoremap <leader>sopt :-1read $HOME/.config/nvim/snippets/opt<CR>
+nnoremap <leader>stay :-1read /Users/michaelcueno/.config/nvim/snippets/stay<CR>$hhp

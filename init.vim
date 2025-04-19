@@ -57,6 +57,7 @@ elseif has('nvim')
   map <leader>b :Git blame<CR>
   map <leader>gs :Git show <cword><CR>
   map <leader>gd :Gvdiff main<CR>
+  map <leader>gdh :Gvdiff head~<CR>
 
 endif
 
@@ -92,10 +93,10 @@ nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
 map <C-p> :GFiles --cached --others --exclude-standard <CR>
 
 "-- folding 
-set foldmethod=syntax " Try using tree-sitter
-set foldlevelstart=20
-"set foldmethod=expr
-"set foldexpr=nvim_treesitter#foldexpr()
+"set foldmethod=syntax " Try using tree-sitter
+"set foldlevelstart=20
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
 set nofoldenable                     " Disable folding at startup.
 
 "-- lightline 
@@ -316,6 +317,7 @@ if !exists('g:vscode')
   map <leader>c :NERDTreeToggle<cr>
   map <leader>ya :%y<cr>
   let NERDTreeIgnore = ['\.d.ts$', '\.d.ts.map$']
+  let g:NERDTreeWinSize=50
 endif
 
 function! Ijs() 
@@ -326,6 +328,16 @@ function! BranchName ()
   let g:branchName = system("git branch --show-current")
   echo g:branchName
 endfunction
+
+" Function to execute nodedev command
+function! RunNodeDev()
+  " Copy file name to clipboard
+  let @+ = expand('%')
+  " Execute nodedev command in shell
+  :!nodedev
+endfunction
+" Map <leader>d to the RunNodeDev function
+nnoremap <leader>d :call RunNodeDev()<CR>
 
 "Open notes
 map <leader>n :vsp<CR>:e ~/.journal/notes.md<CR>
@@ -411,7 +423,6 @@ autocmd BufNewFile,BufRead *.sass             set ft=sass.css
 " ENCODING SETTINGS
 "--------------------------------------------------------------------------- 
 set encoding=utf-8                                  
-set termencoding=utf-8
 set fileencoding=utf-8
 set fileencodings=ucs-bom,utf-8,big5,gb2312,latin1
 
@@ -470,6 +481,29 @@ endfunction
 "--------------------------------------------------------------------------- 
 " Define a custom command to copy the relative file path to clipboard
 nnoremap <leader>y :let @+ = expand('%')<CR>
+" Function to copy all buffer paths in current tab to clipboard
+function! CopyAllBufferPaths()
+    let paths = []
+    " Loop through all windows in current tab
+    for winnr in range(1, winnr('$'))
+        " Get buffer number for each window
+        let bufnr = winbufnr(winnr)
+        " Get buffer name/path
+        let bufname = bufname(bufnr)
+        " Check if buffer is valid and not NERDTree
+        if bufname != '' && bufname !~ 'NERD_tree'
+            " Get relative path
+            let relpath = fnamemodify(bufname, ':.')
+            call add(paths, relpath)
+        endif
+    endfor
+    " Join paths with newlines and copy to clipboard
+    let @+ = join(paths, "\n")
+    echo "Copied " . len(paths) . " file paths to clipboard"
+endfunction
+
+" Map it to a key combination (e.g., <leader>Y)
+nnoremap <leader>Y :call CopyAllBufferPaths()<CR>
 
 "--------------------------------------------------------------------------- 
 " Sessions
