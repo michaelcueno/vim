@@ -30,6 +30,7 @@ if exists('g:vscode')
   nnoremap <leader>t <Cmd>call VSCodeNotify('workbench.view.explorer')<CR>
   nnoremap <leader>gh <Cmd>call VSCodeNotify('openInGithub.openInGitHubFile')<CR>
   nnoremap <leader>ag <Cmd>call VSCodeNotify('runInSearchPanel', {'filesToInclude': '${workspaceFolder}', 'triggerSearch': true })<CR>
+  let g:copilot_enabled = 0
 
   " Git lens
   map <leader>gc <Cmd>call VSCodeNotify('gitlens.compareHeadWith')<CR>
@@ -46,6 +47,7 @@ if exists('g:vscode')
   nnoremap <silent> zc <Cmd>call VSCodeNotify('editor.fold')<CR>
   nnoremap <silent> zC <Cmd>call VSCodeNotify('editor.foldRecursively')<CR>
 elseif has('nvim')
+  let g:copilot_enabled = 1
   packadd plenary.nvim
   packadd diffview.nvim
   packadd vim-fugitive
@@ -56,8 +58,8 @@ elseif has('nvim')
   " Map git blame 
   map <leader>b :Git blame<CR>
   map <leader>gs :Git show <cword><CR>
-  map <leader>gd :Gvdiff main<CR>
-  map <leader>gdh :Gvdiff head~<CR>
+  map <leader>gd :DiffviewOpen main<CR>
+  map <leader>gdh :DiffViewOpen head~<CR>
 
 endif
 
@@ -66,7 +68,6 @@ endif
 "--------------------------------------------------------------------------- 
 "-- Copilot 
 " Toggle Copilot on or off 
-let g:copilot_enabled = 1
 function! ToggleCopilot() 
   if exists('g:copilot_enabled') && g:copilot_enabled == 1
     let g:copilot_enabled = 0
@@ -234,11 +235,12 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 "--------------------------------------------------------------------------- 
 set t_Co=256   " This is may or may not needed.
 set background=dark " light" or dark
-colorscheme PaperColor
-highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
-highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
-highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
-highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
+colorscheme Black
+
+highlight DiffAdd    cterm=bold ctermbg=17 gui=none guifg=none guibg=#4b5632
+highlight DiffDelete cterm=bold ctermbg=17 gui=none guifg=none guibg=#9b5632
+highlight DiffChange cterm=bold ctermbg=17 gui=none guifg=none guibg=#6b5632
+highlight DiffText   cterm=bold ctermbg=88 gui=none guifg=none guibg=88
 "--------------------------------------------------------------------------- 
 
 "--------------------------------------------------------------------------- 
