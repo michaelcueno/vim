@@ -59,7 +59,7 @@ elseif has('nvim')
   map <leader>b :Git blame<CR>
   map <leader>gs :Git show <cword><CR>
   map <leader>gd :DiffviewOpen main<CR>
-  map <leader>gdh :DiffViewOpen head~<CR>
+  map <leader>gdh :Gvdiff head~<CR>
 
 endif
 
@@ -80,14 +80,13 @@ endfunction
 map <leader>fp :call ToggleCopilot()<CR>
 map <leader>fc :call ToggleCopilot()<CR>
 
-map <leader>l :LaunchOptions<CR>
 
 "-- local vim
-let whitelist_paths = glob('~/dev-tools/config/*', 0, 1)
-call add(whitelist_paths, '~/.journal/*')
+let homedir = expand('~')
+let whitelist_paths = glob(homedir . '/dev-tools/config/*', 0, 1)
+call add(whitelist_paths, homedir . '/.journal')
 let g:localvimrc_whitelist = whitelist_paths
 let g:localvimrc_sandbox=0
-
 
 "-- fzf 
 nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
@@ -121,6 +120,23 @@ function! ProjectRootForLightLine()
   let dir = finddir('.git/..', expand('%:p:h').';')
   return fnamemodify(dir, ':t')
 endfunction
+
+"-- Language settings 
+" If python, enable black formatter
+if &filetype == 'python'
+  packadd black
+  nnoremap <buffer><silent> <c-q> <cmd>call Black()<cr>
+  let g:python_recommended_style = 0
+  let g:python_black_path = '/usr/local/bin/black'
+  let g:python_black_args = '--line-length=88'
+  let g:python_black_local_args = '--line-length=88'
+  let g:python_black_local = 1
+  let g:python_black_on_save = 1
+  let g:python_black_on_write = 1
+  let g:python_black_on_insert_leave = 1
+  let g:python_black_on_insert_leave = 1
+  let g:python_black_on_insert_leave = 1
+endif
 
 "-- ctags 
 let g:gutentags_add_default_project_roots = 0
@@ -234,8 +250,8 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " Custom Colors 
 "--------------------------------------------------------------------------- 
 set t_Co=256   " This is may or may not needed.
-set background=dark " light" or dark
-colorscheme Black
+set background=light " light" or dark
+colorscheme Black " Black or Light
 
 highlight DiffAdd    cterm=bold ctermbg=17 gui=none guifg=none guibg=#4b5632
 highlight DiffDelete cterm=bold ctermbg=17 gui=none guifg=none guibg=#9b5632
@@ -319,7 +335,7 @@ if !exists('g:vscode')
   map <leader>c :NERDTreeToggle<cr>
   map <leader>ya :%y<cr>
   let NERDTreeIgnore = ['\.d.ts$', '\.d.ts.map$']
-  let g:NERDTreeWinSize=50
+  let g:NERDTreeWinSize=40
 endif
 
 function! Ijs() 

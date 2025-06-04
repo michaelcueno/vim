@@ -88,6 +88,6 @@
 [submodule "pack/plugins/start/vim-wakatime"]
 	path = pack/plugins/start/vim-wakatime
 	url = https://github.com/wakatime/vim-wakatime
-[submodule "pack/plugins/opt/black-nvim"]
-	path = pack/plugins/opt/black-nvim
-	url = https://github.com/averms/black-nvim
+[submodule "pack/plugins/start/black"]
+	path = pack/plugins/start/black
+	url = https://github.com/psf/black
