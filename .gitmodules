@@ -89,5 +89,5 @@
 	path = pack/plugins/start/vim-wakatime
 	url = https://github.com/wakatime/vim-wakatime
 [submodule "pack/plugins/start/black"]
-	path = pack/plugins/start/black
+	path = pack/plugins/opt/black
 	url = https://github.com/psf/black

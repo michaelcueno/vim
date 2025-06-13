@@ -55,17 +55,19 @@ elseif has('nvim')
 "  packadd copilot.vim
   packadd vim-visual-multi
 
-  " Map git blame 
-  map <leader>b :Git blame<CR>
-  map <leader>gs :Git show <cword><CR>
-  map <leader>gd :DiffviewOpen main<CR>
-  map <leader>gdh :Gvdiff head~<CR>
 
 endif
 
 "--------------------------------------------------------------------------- 
 " PLUGIN SETTINGS
 "--------------------------------------------------------------------------- 
+" -- git 
+" Map git blame 
+map <leader>b :Git blame<CR>
+map <leader>gs :Git show <cword><CR>
+map <leader>gd :DiffviewOpen main<CR>
+map <leader>gdh :Gvdiff head~<CR>
+
 "-- Copilot 
 " Toggle Copilot on or off 
 function! ToggleCopilot() 
