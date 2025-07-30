@@ -252,8 +252,8 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " Custom Colors 
 "--------------------------------------------------------------------------- 
 set t_Co=256   " This is may or may not needed.
-set background=light " light" or dark
-colorscheme Black " Black or Light
+"set background=dark " light" or dark
+colorscheme catppuccin"-latte
 
 highlight DiffAdd    cterm=bold ctermbg=17 gui=none guifg=none guibg=#4b5632
 highlight DiffDelete cterm=bold ctermbg=17 gui=none guifg=none guibg=#9b5632

@@ -91,3 +91,9 @@
 [submodule "pack/plugins/start/black"]
 	path = pack/plugins/opt/black
 	url = https://github.com/psf/black
+[submodule "pack/plugins/start/catppucin.nvim"]
+	path = pack/plugins/start/catppucin.nvim
+	url = https://github.com/catppuccin/nvim
+[submodule "pack/plugins/start/vim-tmux-navigator"]
+	path = pack/plugins/start/vim-tmux-navigator
+	url = https://github.com/christoomey/vim-tmux-navigator
